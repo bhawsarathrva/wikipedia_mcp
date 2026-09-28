@@ -355,7 +355,30 @@ All 12 tests run asynchronously and mock live components where appropriate for s
 
 ## 🪵 Logging & Observability
 
-The application outputs clear, tagged diagnostic logs across every layer of the architecture:
+### 1. Structured JSON Log File
+All logs across the application (FastAPI backend, LangGraph agent, MCP client, and MCP server) are automatically formatted and written as **JSON Lines (`.jsonl`)** to:
+
+```
+logs/app.log.jsonl
+```
+
+Each log line is a standalone, machine-parseable JSON object:
+```json
+{
+  "timestamp": "2026-09-28T06:40:53.687861+00:00",
+  "level": "INFO",
+  "logger": "mcp_server.server",
+  "message": "[MCP SERVER] Tool called: search_wikipedia(query='Isaac Newton', limit=2)",
+  "module": "server",
+  "func_name": "search_wikipedia",
+  "line": 45,
+  "process_id": 8589,
+  "thread_name": "MainThread"
+}
+```
+
+### 2. Human-Readable Console Stream
+Simultaneously, readable diagnostic logs are displayed in your terminal:
 
 ```text
 2026-09-26 15:42:16 [INFO] [USER] Who was Alan Turing?

@@ -16,12 +16,10 @@ from mcp_server.wikipedia import (
     get_wikipedia_article as api_get_wikipedia_article,
     get_wikipedia_summary as api_get_wikipedia_summary,
 )
+from app.logger import setup_json_logging
 
-logging.basicConfig(
-    stream=sys.stderr,
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
-)
+# Configure logging with structured JSON file output and stderr console stream
+setup_json_logging(console_stream=sys.stderr)
 logger = logging.getLogger("mcp_server.server")
 server = MCPServer(name="wikipedia-mcp-server")
 

@@ -13,6 +13,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 # Base directories
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROMPTS_DIR = BASE_DIR / "prompts"
+LOGS_DIR = BASE_DIR / "logs"
 
 
 class Settings(BaseSettings):
@@ -23,6 +24,10 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
         extra="ignore",
     )
+
+    # Logging Configuration
+    LOG_FILE: str = str(LOGS_DIR / "app.log.jsonl")
+    LOG_LEVEL: str = "INFO"
 
     # LLM Settings
     LLM_PROVIDER: Literal["ollama", "gemini", "openai"] = "ollama"

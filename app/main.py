@@ -16,19 +16,18 @@ from app.agent.tools import build_langchain_tools_from_mcp
 from app.api.routes import router as api_router
 from app.config import settings
 from app.graph.workflow import build_agent_graph
+from app.logger import setup_json_logging
 from app.mcp.client import WikipediaMCPClient
 
-# Configure root logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
-)
+# Configure root logging with structured JSON file output and readable console output
+setup_json_logging(log_file_path=settings.LOG_FILE, level=settings.LOG_LEVEL)
 logger = logging.getLogger("app.main")
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Application lifespan manager to orchestrate MCP client and LangGraph initialization."""
+    setup_json_logging(log_file_path=settings.LOG_FILE, level=settings.LOG_LEVEL)
     logger.info("==================================================")
     logger.info("Initializing Wikipedia MCP Agent Backend Service...")
     logger.info(f"LLM Provider: {settings.LLM_PROVIDER}")
