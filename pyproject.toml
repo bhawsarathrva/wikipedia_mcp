@@ -1,0 +1,21 @@
+[project]
+name = "wikipedia-mcp"
+version = "0.1.0"
+description = "This is wikipedia MCP server which uses MCP to provide wikipedia articles to LLM agents for now"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "wikipedia-mcp-server>=1.0.1",
+]
+
+[project.scripts]
+wikipedia-mcp = "wikipedia_mcp:main"
+
+[build-system]
+requires = ["uv_build>=0.12.7,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+asyncio_mode = "auto"
+
